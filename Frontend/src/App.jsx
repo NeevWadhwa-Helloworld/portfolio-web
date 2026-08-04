@@ -1,8 +1,6 @@
 import { BrowserRouter, NavLink, Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import Home from './pages/Home'
-import About from './pages/About'
-import Services from './pages/Services'
 import Experience from './pages/Experience'
 import Skill from './pages/Skill'
 import Portfolio from './pages/Portfolio'
@@ -11,6 +9,7 @@ import Contact from './pages/Contact'
 import AdminPortal from './pages/AdminPortal'
 import AdminDashboard from './pages/AdminDashboard'
 import NotFound from './pages/NotFound'
+import logoImg from './assets/logo.png'
 import './App.css'
 
 const AppRoutes = () => {
@@ -33,8 +32,6 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/services" element={<Services />} />
       <Route path="/mission" element={<Mission />} />
       <Route path="/experience" element={<Experience />} />
       <Route path="/skill" element={<Skill />} />
@@ -53,18 +50,12 @@ const App = () => {
       <div className="app-shell">
         <header className="site-header">
           <div className="brand">
-            <div className="brand-logo">N</div>
+            <img className="brand-logo-img" src={logoImg} alt="Neev Wadhwa Logo" />
             <div className="brand-text">NEEV</div>
           </div>
           <nav className="site-nav">
             <NavLink to="/" end className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
               Home
-            </NavLink>
-            <NavLink to="/about" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
-              About Me
-            </NavLink>
-            <NavLink to="/services" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
-              Services
             </NavLink>
             <NavLink to="/experience" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
               Experience

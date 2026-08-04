@@ -78,75 +78,72 @@ const Mission = () => {
 
   return (
     <div className="page-shell mission-page">
-      <section className="page-section">
-        <div className="section-intro">
-          <p className="section-label">A Student Helping Trust</p>
-          <h2>{titleText}</h2>
-          <p className="section-text">{descriptionText}</p>
-        </div>
-
-        <div className="feature-grid mission-grid">
-          <article className="feature-card">
-            <h3>{mission.subtitle || 'Supporting Students'}</h3>
-            <p>{mission.goals?.[0] || 'Provide scholarships and learning tools for under-resourced students.'}</p>
-          </article>
-          <article className="feature-card">
-            <h3>{mission.goals?.[1] || 'Mentorship & guidance'}</h3>
-            <p>{mission.goals?.[1] || 'Offer mentorship, career guidance, and community workshops.'}</p>
-          </article>
-          <article className="feature-card">
-            <h3>{mission.goals?.[2] || 'Trusted future'}</h3>
-            <p>{mission.goals?.[2] || 'Build a stronger future through education and trusted support.'}</p>
-          </article>
-        </div>
+      <section className="section-hero">
+        <p className="section-label">A Student Helping Trust</p>
+        <h1>{titleText}</h1>
+        <p className="section-text">{descriptionText}</p>
       </section>
 
-      <section className="page-section">
-        <div className="section-intro">
-          <p className="section-label">Donate</p>
-          <h2>Support the trust with your donation</h2>
-          <p className="section-text">
-            Your contribution helps fund student scholarships, study materials, mentorship sessions, and digital learning programs.
-          </p>
-        </div>
-        <div className="contact-grid">
-          <div className="contact-card">
-            <form className="contact-form" onSubmit={handleDonate}>
-              <label>
-                Your Name
-                <input
-                  value={donation.name}
-                  onChange={(e) => setDonation({ ...donation, name: e.target.value })}
-                  required
-                />
-              </label>
-              <label>
-                Email
-                <input
-                  type="email"
-                  value={donation.email}
-                  onChange={(e) => setDonation({ ...donation, email: e.target.value })}
-                  required
-                />
-              </label>
-              <label>
-                Donation Amount
-                <input
-                  type="number"
-                  min="1"
-                  value={donation.amount}
-                  onChange={(e) => setDonation({ ...donation, amount: e.target.value })}
-                  required
-                />
-              </label>
-              <button className="button button-primary" type="submit" disabled={loading}>
-                {loading ? 'Processing...' : 'Donate Now'}
-              </button>
-            </form>
-            {message && <p className="form-message">{message}</p>}
-          </div>
-        </div>
+      <div className="mission-grid">
+        <article className="feature-card">
+          <h3>{mission.subtitle || 'Supporting Students'}</h3>
+          <p>{mission.goals?.[0] || 'Provide scholarships and learning tools for under-resourced students.'}</p>
+        </article>
+        <article className="feature-card">
+          <h3>{mission.goals?.[1] || 'Mentorship & guidance'}</h3>
+          <p>{mission.goals?.[1] || 'Offer mentorship, career guidance, and community workshops.'}</p>
+        </article>
+        <article className="feature-card">
+          <h3>{mission.goals?.[2] || 'Trusted future'}</h3>
+          <p>{mission.goals?.[2] || 'Build a stronger future through education and trusted support.'}</p>
+        </article>
+      </div>
+
+      <section className="section-hero" style={{ marginTop: '3rem' }}>
+        <p className="section-label">Donate</p>
+        <h1>Support the trust with your donation</h1>
+        <p className="section-text">
+          Your contribution helps fund student scholarships, study materials, mentorship sessions, and digital learning programs.
+        </p>
       </section>
+
+      <div className="contact-grid">
+        <div className="contact-card">
+          <form className="contact-form" onSubmit={handleDonate}>
+            <label>
+              Your Name
+              <input
+                value={donation.name}
+                onChange={(e) => setDonation({ ...donation, name: e.target.value })}
+                required
+              />
+            </label>
+            <label>
+              Email
+              <input
+                type="email"
+                value={donation.email}
+                onChange={(e) => setDonation({ ...donation, email: e.target.value })}
+                required
+              />
+            </label>
+            <label>
+              Donation Amount
+              <input
+                type="number"
+                min="1"
+                value={donation.amount}
+                onChange={(e) => setDonation({ ...donation, amount: e.target.value })}
+                required
+              />
+            </label>
+            <button className="button button-primary" type="submit" disabled={loading}>
+              {loading ? 'Processing...' : 'Donate Now'}
+            </button>
+          </form>
+          {message && <p className="form-message">{message}</p>}
+        </div>
+      </div>
     </div>
   )
 }

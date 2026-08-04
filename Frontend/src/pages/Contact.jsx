@@ -37,49 +37,56 @@ const Contact = () => {
   return (
     <div className="page-shell section-page">
       <section className="section-hero">
-        <div>
-          <p className="section-label">Let&apos;s Talk</p>
-          <h1>Ready to collaborate?</h1>
-          <p className="section-text">
-            Send a message and I&apos;ll respond with a proposal or next steps for your project.
-          </p>
-        </div>
-        <div className="contact-card contact-form-card">
+        <p className="section-label">Let&apos;s Talk</p>
+        <h1>Ready to collaborate?</h1>
+        <p className="section-text">
+          Send a message and I&apos;ll respond with a proposal or next steps for your project.
+        </p>
+      </section>
+
+      <div className="contact-grid">
+        <div className="contact-card">
           <form className="contact-form" onSubmit={handleSubmit}>
-            <label htmlFor="contact-name">Name</label>
-            <input
-              id="contact-name"
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Your name"
-              required
-            />
-            <label htmlFor="contact-email">Email</label>
-            <input
-              id="contact-email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
-              required
-            />
-            <label htmlFor="contact-message">Message</label>
-            <textarea
-              id="contact-message"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              placeholder="Tell me about your project"
-              rows={6}
-              required
-            />
+            <label htmlFor="contact-name">
+              Name
+              <input
+                id="contact-name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Your name"
+                required
+              />
+            </label>
+            <label htmlFor="contact-email">
+              Email
+              <input
+                id="contact-email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@example.com"
+                required
+              />
+            </label>
+            <label htmlFor="contact-message">
+              Message
+              <textarea
+                id="contact-message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Tell me about your project"
+                rows={6}
+                required
+              />
+            </label>
             <button className="button button-primary" type="submit" disabled={loading}>
               {loading ? 'Sending...' : 'Send Message'}
             </button>
             {status && <p className="form-message">{status}</p>}
           </form>
         </div>
-      </section>
+      </div>
     </div>
   )
 }

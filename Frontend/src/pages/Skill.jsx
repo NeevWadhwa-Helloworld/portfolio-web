@@ -27,24 +27,23 @@ const Skill = () => {
   return (
     <div className="page-shell section-page">
       <section className="section-hero">
-        <div>
-          <p className="section-label">Skill</p>
-          <h1>Tools and technologies I use daily.</h1>
-          <p className="section-text">
-            I work and learn in 3 main domains - Web Development, Artificial Intelligence, and Blockchain.
-          </p>
-        </div>
-        <div className="skill-grid">
-          {loading && <p>Loading skills...</p>}
-          {error && <p>{error}</p>}
-          {!loading && !error && skills.length === 0 && <p>No skills found.</p>}
-          {skills.map((skill) => (
-            <div key={skill.id} className="skill-chip">
-              {skill.name} {skill.level ? `• ${skill.level}` : ''}
-            </div>
-          ))}
-        </div>
+        <p className="section-label">Skills</p>
+        <h1>Tools and technologies I use daily.</h1>
+        <p className="section-text">
+          I work and learn in 3 main domains - Web Development, Artificial Intelligence, and Blockchain.
+        </p>
       </section>
+
+      <div className="skill-grid">
+        {loading && <p>Loading skills...</p>}
+        {error && <p>{error}</p>}
+        {!loading && !error && skills.length === 0 && <p>No skills found.</p>}
+        {skills.map((skill) => (
+          <div key={skill.id} className="skill-chip">
+            {skill.name} {skill.level ? `• ${skill.level}` : ''}
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
