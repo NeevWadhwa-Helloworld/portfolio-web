@@ -14,7 +14,7 @@ const Mission = () => {
         setMission(data)
       } catch (error) {
         setMission({
-          title: 'Wadhwa Foundation - Student Helping Trust',
+          title: 'Wadhwa Foundation',
           subtitle: 'A mission-driven student support trust',
           description:
             'It is my personal mission to support students with mentorship, academic resources, and financial aid so they can focus on education and personal growth under Wadhwa Foundation.',
@@ -71,6 +71,7 @@ const Mission = () => {
     text
       .replace(/Neev\s*/gi, '')
       .replace(/Student Helping Trust/gi, 'Wadhwa Foundation')
+      .replace(/Wadhwa Foundation\s*-\s*Wadhwa Foundation/gi, 'Wadhwa Foundation')
       .trim()
 
   const titleText = cleanText(mission.title) || 'Wadhwa Foundation'

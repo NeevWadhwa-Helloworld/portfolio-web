@@ -86,6 +86,43 @@ const Contact = () => {
             {status && <p className="form-message">{status}</p>}
           </form>
         </div>
+
+        <div className="contact-card info-card">
+          <h2>Direct Info</h2>
+          <p className="info-desc">
+            Feel free to reach out directly through email, phone, or connect on professional platforms.
+          </p>
+
+          <div className="info-details">
+            <div className="info-item">
+              <span className="info-label">Email</span>
+              <a href="mailto:neevwadhwa9568@gmail.com" className="info-value">
+                neevwadhwa9568@gmail.com
+              </a>
+            </div>
+            <div className="info-item">
+              <span className="info-label">Phone</span>
+              <a href="tel:9568770930" className="info-value">
+                +91 9568770930
+              </a>
+            </div>
+          </div>
+
+          <div className="info-socials">
+            <span className="info-label">On the Web</span>
+            <div className="social-links-vertical">
+              <a href="https://www.linkedin.com/in/neev-wadhwa/" target="_blank" rel="noreferrer" className="button button-secondary social-btn">
+                LinkedIn
+              </a>
+              <a href="https://github.com/NeevWadhwa-Helloworld" target="_blank" rel="noreferrer" className="button button-outline social-btn">
+                GitHub
+              </a>
+              <a href="https://leetcode.com/u/NeevWadhwa1/" target="_blank" rel="noreferrer" className="button button-outline social-btn">
+                LeetCode
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )

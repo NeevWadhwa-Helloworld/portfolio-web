@@ -83,6 +83,32 @@ const App = () => {
         <main className="page-router">
           <AppRoutes />
         </main>
+
+        <footer className="site-footer">
+          <div className="footer-content">
+            <div className="footer-brand">
+              <span className="brand-text">NEEV</span>
+              <p className="footer-copyright">© {new Date().getFullYear()} Neev Wadhwa. All rights reserved.</p>
+            </div>
+            <div className="footer-links">
+              <div className="footer-contact">
+                <span>Email: <a href="mailto:neevwadhwa9568@gmail.com">neevwadhwa9568@gmail.com</a></span>
+                <span>Phone: <a href="tel:9568770930">+91 9568770930</a></span>
+              </div>
+              <div className="footer-socials">
+                <a href="https://www.linkedin.com/in/neev-wadhwa/" target="_blank" rel="noreferrer" className="social-link">
+                  LinkedIn
+                </a>
+                <a href="https://github.com/NeevWadhwa-Helloworld" target="_blank" rel="noreferrer" className="social-link">
+                  GitHub
+                </a>
+                <a href="https://leetcode.com/u/NeevWadhwa1/" target="_blank" rel="noreferrer" className="social-link">
+                  LeetCode
+                </a>
+              </div>
+            </div>
+          </div>
+        </footer>
       </div>
     </BrowserRouter>
   )
