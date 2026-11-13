@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const Donation = require('../models/Donation');
 
 const login = async (req, res) => {
   const { email, password } = req.body;
@@ -46,7 +47,17 @@ const getDashboard = async (req, res) => {
   }
 };
 
+const getDonations = async (req, res) => {
+  try {
+    const donations = await Donation.find().sort({ createdAt: -1 });
+    res.json(donations);
+  } catch (error) {
+    res.status(500).json({ message: 'Unable to load donations', error: error.message });
+  }
+};
+
 module.exports = {
   login,
   getDashboard,
+  getDonations,
 };

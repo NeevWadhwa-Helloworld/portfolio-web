@@ -1,6 +1,6 @@
 const express = require('express');
 const adminAuth = require('../middlewares/adminAuth');
-const { login, getDashboard } = require('../controllers/adminController');
+const { login, getDashboard, getDonations } = require('../controllers/adminController');
 const {
   getProjects,
   createProject,
@@ -22,6 +22,7 @@ const router = express.Router();
 router.post('/login', login);
 router.get('/', adminAuth, getDashboard);
 router.get('/dashboard', adminAuth, getDashboard);
+router.get('/donations', adminAuth, getDonations);
 
 router.get('/projects', adminAuth, getProjects);
 router.post('/projects', adminAuth, createProject);

@@ -1,10 +1,37 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+const fetchAdminResources = async (token) => {
+  const endpoints = ['projects', 'experiences', 'skills', 'contacts', 'donations']
+  const responses = await Promise.all(
+    endpoints.map((endpoint) =>
+      fetch(`/admin/${endpoint}`, { headers: { Authorization: `Bearer ${token}` } })
+    )
+  )
+  const data = await Promise.all(
+    responses.map(async (response) => {
+      const body = await response.json()
+      if (!response.ok) {
+        throw new Error(body.message || 'Unable to load admin resources')
+      }
+      return body
+    })
+  )
+
+  return {
+    projects: data[0],
+    experiences: data[1],
+    skills: data[2],
+    contacts: data[3],
+    donations: data[4],
+  }
+}
+
 const AdminDashboard = () => {
   const [message, setMessage] = useState('Loading admin dashboard...')
   const [adminInfo, setAdminInfo] = useState(null)
   const [submitMessage, setSubmitMessage] = useState('')
+  const [resourceError, setResourceError] = useState('')
   const [projectForm, setProjectForm] = useState({
     title: '',
     description: '',
@@ -28,6 +55,8 @@ const AdminDashboard = () => {
     projects: [],
     experiences: [],
     skills: [],
+    contacts: [],
+    donations: [],
   })
   const [editingProjectId, setEditingProjectId] = useState(null)
   const [editingExperienceId, setEditingExperienceId] = useState(null)
@@ -56,21 +85,16 @@ const AdminDashboard = () => {
         setAdminInfo(data)
         setMessage('')
       } catch (error) {
-        setMessage('Unable to load admin dashboard.')
+        setMessage(error.message || 'Unable to load admin dashboard.')
       }
     }
 
     const fetchResources = async () => {
       try {
-        const responses = await Promise.all([
-          fetch('/admin/projects', { headers: { Authorization: `Bearer ${token}` } }),
-          fetch('/admin/experiences', { headers: { Authorization: `Bearer ${token}` } }),
-          fetch('/admin/skills', { headers: { Authorization: `Bearer ${token}` } }),
-        ])
-        const [projects, experiences, skills] = await Promise.all(responses.map((res) => res.json()))
-        setResources({ projects, experiences, skills })
+        setResources(await fetchAdminResources(token))
+        setResourceError('')
       } catch (error) {
-        console.error('Unable to load admin resources', error)
+        setResourceError(error.message || 'Unable to load admin resources.')
       }
     }
 
@@ -149,15 +173,10 @@ const AdminDashboard = () => {
 
   const refreshResources = async () => {
     try {
-      const responses = await Promise.all([
-        fetch('/admin/projects', { headers: { Authorization: `Bearer ${token}` } }),
-        fetch('/admin/experiences', { headers: { Authorization: `Bearer ${token}` } }),
-        fetch('/admin/skills', { headers: { Authorization: `Bearer ${token}` } }),
-      ])
-      const [projects, experiences, skills] = await Promise.all(responses.map((res) => res.json()))
-      setResources({ projects, experiences, skills })
+      setResources(await fetchAdminResources(token))
+      setResourceError('')
     } catch (error) {
-      console.error('Unable to refresh admin resources', error)
+      setResourceError(error.message || 'Unable to refresh admin resources.')
     }
   }
 
@@ -320,6 +339,8 @@ const AdminDashboard = () => {
               <span>Projects: {resources.projects.length}</span>
               <span>Experiences: {resources.experiences.length}</span>
               <span>Skills: {resources.skills.length}</span>
+              <span>Messages: {resources.contacts.length}</span>
+              <span>Donations: {resources.donations.length}</span>
               <button className="button admin-button" type="button" onClick={refreshResources}>
                 Refresh
               </button>
@@ -330,6 +351,60 @@ const AdminDashboard = () => {
           </button>
         </div>
       </section>
+
+      <section className="section-form-grid">
+        <div className="admin-card">
+          <h2 className="section-label">Contact &amp; collaboration messages</h2>
+          <div className="resource-list">
+            {resources.contacts.length === 0 && !resourceError && (
+              <p className="section-text">No messages received yet.</p>
+            )}
+            {resources.contacts.map((contact) => (
+              <article key={contact.id || contact._id} className="resource-item">
+                <div className="resource-item-head">
+                  <strong>{contact.name}</strong>
+                  <button
+                    type="button"
+                    className="button admin-button"
+                    onClick={() => handleDeleteResource('contacts', contact.id || contact._id)}
+                  >
+                    Delete
+                  </button>
+                </div>
+                <p><a href={`mailto:${contact.email}`}>{contact.email}</a></p>
+                <p>{contact.message}</p>
+                <time dateTime={contact.createdAt}>
+                  {new Date(contact.createdAt).toLocaleString()}
+                </time>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div className="admin-card">
+          <h2 className="section-label">Foundation donations</h2>
+          <div className="resource-list">
+            {resources.donations.length === 0 && !resourceError && (
+              <p className="section-text">No donations recorded yet.</p>
+            )}
+            {resources.donations.map((donation) => (
+              <article key={donation.id || donation._id} className="resource-item">
+                <div className="resource-item-head">
+                  <strong>{donation.name}</strong>
+                  <span>{donation.status}</span>
+                </div>
+                <p><a href={`mailto:${donation.email}`}>{donation.email}</a></p>
+                <p><strong>Amount:</strong> {donation.amount} USD</p>
+                <p><strong>Payment:</strong> {donation.gateway}</p>
+                <time dateTime={donation.createdAt}>
+                  {new Date(donation.createdAt).toLocaleString()}
+                </time>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+      {resourceError && <p className="form-message">{resourceError}</p>}
 
       <section className="section-form-grid">
         <div className="admin-card">
